@@ -1,19 +1,13 @@
-# Roy Business Card
+# roy-business-card · motomov.ru
 
-Простой статический сайт-визитка.
+Личная площадка Roy (Moto / motomov.ru).
 
-## Запуск локально
+## Стек
+Статика без сборки: `index.html`, `poems.html`, `styles.css`, `app.js`.
 
-Открой `index.html` в браузере или запусти локальный сервер:
+## Деплой
+Push в `main` → Vercel production (`https://www.motomov.ru`).
 
-```bash
-npx serve .
-```
-
-## Деплой на Vercel
-
-Проект привязан к Vercel. Любой пуш в `main` автоматически обновляет production.
-
-## Структура
-
-- `index.html` — вся страница (HTML + CSS)
+## Разделы
+- О себе + карусель афоризмов
+- Стихи (`poems.html`) — пока примеры вёрстки
