@@ -11,7 +11,7 @@
   const shuffleBtn = document.querySelector("[data-reshuffle]");
   const countEl = document.querySelector("[data-quote-count]");
 
-  const INTERVAL = 6000;
+  const INTERVAL = 9000;
   const PICK = 7;
   let pool = [];
   let items = [];
