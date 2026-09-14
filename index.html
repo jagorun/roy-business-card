@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="bg-grid" aria-hidden="true"></div>
   <div class="bg-orb a" aria-hidden="true"></div>
   <div class="bg-orb b" aria-hidden="true"></div>
 
@@ -38,48 +39,24 @@
     <section id="aphorisms" aria-labelledby="aphorisms-title">
       <div class="section-head">
         <h2 id="aphorisms-title">Афоризмы</h2>
-        <span>меняются сами · из заметок</span>
+        <button type="button" class="ghost-btn" data-reshuffle title="Другая случайная подборка">другая подборка</button>
       </div>
 
       <div class="carousel" data-carousel aria-live="polite">
-        <div class="carousel-track">
+        <div class="progress" data-carousel-progress aria-hidden="true"></div>
+        <div class="spark-layer" data-spark aria-hidden="true"></div>
+        <div class="carousel-track" data-carousel-track>
           <div class="carousel-item is-active" data-carousel-item>
-            <blockquote>
-              <p>На самом деле жизнь проста, но мы настойчиво её усложняем.</p>
-              <footer>из коллекции · без автора</footer>
-            </blockquote>
-          </div>
-          <div class="carousel-item" data-carousel-item>
-            <blockquote>
-              <p>Выбери себе работу по душе — и тебе не придётся работать ни одного дня в своей жизни.</p>
-              <footer>из коллекции · без автора</footer>
-            </blockquote>
-          </div>
-          <div class="carousel-item" data-carousel-item>
-            <blockquote>
-              <p>Трудно идти по жизни несколькими путями одновременно.</p>
-              <footer>из коллекции · без автора</footer>
-            </blockquote>
-          </div>
-          <div class="carousel-item" data-carousel-item>
-            <blockquote>
-              <p>Не делай зла — не будешь знать и страха.</p>
-              <footer>из коллекции · без автора</footer>
-            </blockquote>
-          </div>
-          <div class="carousel-item" data-carousel-item>
-            <blockquote>
-              <p>Слово, руководствуясь которым можно прожить всю жизнь: снисходительность.</p>
-              <footer>из коллекции · без автора</footer>
-            </blockquote>
+            <blockquote><p>Загрузка…</p></blockquote>
           </div>
         </div>
         <div class="carousel-controls">
-          <button type="button" class="carousel-btn" data-carousel-prev aria-label="Предыдущий афоризм">‹</button>
+          <button type="button" class="carousel-btn" data-carousel-prev aria-label="Предыдущий">‹</button>
           <div class="dots" data-carousel-dots></div>
-          <button type="button" class="carousel-btn" data-carousel-next aria-label="Следующий афоризм">›</button>
+          <button type="button" class="carousel-btn" data-carousel-next aria-label="Следующий">›</button>
         </div>
       </div>
+      <p class="hint"><span data-quote-count>…</span> в базе · F5 — новая семёрка</p>
     </section>
 
     <section id="poems-preview" aria-labelledby="poems-preview-title">
@@ -87,14 +64,13 @@
         <h2 id="poems-preview-title">Стихи</h2>
       </div>
       <div class="teaser">
-        <strong>Отдельная вкладка уже есть</strong>
-        Короткий зал со стихами — с неоновой зелёной гаммой, как весь Moto.
-        <div style="margin-top:0.85rem"><a href="poems.html">Открыть стихи →</a></div>
+        <strong>Отдельная страница</strong>
+        <a href="poems.html">Открыть стихи</a>
       </div>
     </section>
 
     <footer class="site">
-      <p>motomov.ru · личная площадка Roy · <a href="https://github.com/jagorun/roy-business-card">исходники</a></p>
+      <p>motomov.ru · <a href="https://github.com/jagorun/roy-business-card">исходники</a></p>
     </footer>
   </div>
 
