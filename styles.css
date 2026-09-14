@@ -9,7 +9,6 @@
   --text: #e8eee9;
   --muted: #8b968f;
   --line: rgba(57, 255, 20, 0.22);
-  --danger-soft: rgba(57, 255, 20, 0.08);
   --radius: 1.25rem;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
@@ -31,6 +30,24 @@ body {
   overflow-x: hidden;
 }
 
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(57, 255, 20, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  animation: gridDrift 30s linear infinite;
+}
+@keyframes gridDrift {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 48px 48px, 48px 48px; }
+}
+
 .bg-orb {
   position: fixed;
   width: 300px;
@@ -48,6 +65,17 @@ body {
 @keyframes drift {
   from { transform: translate(0, 0) scale(1); }
   to { transform: translate(28px, -20px) scale(1.1); }
+}
+
+.cursor-glow {
+  position: fixed;
+  top: 0; left: 0;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle, rgba(57, 255, 20, 0.12), transparent 65%);
+  mix-blend-mode: screen;
 }
 
 .wrap {
@@ -74,7 +102,7 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 999px;
   border: 1px solid transparent;
-  transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 .nav a:hover,
 .nav a:focus-visible {
@@ -83,6 +111,7 @@ body {
   background: var(--accent-soft);
   outline: none;
   box-shadow: 0 0 18px rgba(57, 255, 20, 0.12);
+  transform: translateY(-1px);
 }
 .nav a.active {
   color: #0a0c0f;
@@ -106,6 +135,22 @@ body {
     0 0 90px var(--glow);
   opacity: 0;
   animation: rise 0.75s ease 0.12s forwards;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -40% auto auto -20%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(57, 255, 20, 0.12), transparent 70%);
+  animation: heroShine 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes heroShine {
+  from { transform: translate(0, 0); opacity: 0.5; }
+  to { transform: translate(30%, 20%); opacity: 1; }
 }
 
 .avatar {
@@ -121,6 +166,8 @@ body {
   background: linear-gradient(135deg, #39ff14, #16a34a);
   box-shadow: 0 0 0 4px rgba(57, 255, 20, 0.18), 0 12px 34px rgba(57, 255, 20, 0.28);
   animation: pulse 4.5s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes pulse {
@@ -132,6 +179,8 @@ h1 {
   font-size: clamp(1.75rem, 4vw, 2.15rem);
   letter-spacing: -0.02em;
   margin-bottom: 0.2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .role {
@@ -140,12 +189,16 @@ h1 {
   margin-bottom: 1rem;
   font-size: 1.05rem;
   text-shadow: 0 0 18px rgba(57, 255, 20, 0.35);
+  position: relative;
+  z-index: 1;
 }
 
 .bio {
   color: var(--muted);
   max-width: 34rem;
   margin: 0 auto 1.75rem;
+  position: relative;
+  z-index: 1;
 }
 
 .contacts {
@@ -154,6 +207,8 @@ h1 {
   gap: 0.75rem;
   max-width: 22rem;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 .contacts a {
   display: block;
@@ -186,7 +241,7 @@ section {
 
 .section-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1rem;
@@ -197,9 +252,30 @@ section {
   font-weight: 650;
   letter-spacing: -0.01em;
 }
-.section-head span { color: var(--muted); font-size: 0.85rem; }
 
-/* Aphorism carousel */
+.ghost-btn {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.ghost-btn:hover {
+  color: var(--accent);
+  border-color: rgba(57, 255, 20, 0.45);
+  background: var(--accent-soft);
+  box-shadow: 0 0 16px rgba(57, 255, 20, 0.12);
+}
+.ghost-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .carousel {
   position: relative;
   background: var(--card);
@@ -210,10 +286,57 @@ section {
   border-left: 3px solid var(--accent);
   padding: 1.6rem 1.35rem 1.25rem;
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28), 0 0 40px rgba(57, 255, 20, 0.06);
-  min-height: 10.5rem;
+  min-height: 11rem;
+  overflow: hidden;
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.carousel.flash {
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28), 0 0 55px rgba(57, 255, 20, 0.22);
+  border-color: rgba(57, 255, 20, 0.45);
+}
+.carousel.reshuffled {
+  animation: reshufflePop 0.65s ease;
+}
+@keyframes reshufflePop {
+  0% { transform: scale(0.98); }
+  40% { transform: scale(1.015); }
+  100% { transform: scale(1); }
+}
+
+.progress {
+  position: absolute;
+  left: 0; top: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 12px var(--glow);
+  pointer-events: none;
+}
+
+.spark-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   overflow: hidden;
 }
-.carousel-track { position: relative; min-height: 5.5rem; }
+.spark {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  animation: sparkFly 0.85s ease-out forwards;
+  opacity: 0.9;
+}
+@keyframes sparkFly {
+  from { transform: translate(0, 0) scale(1); opacity: 0.95; }
+  to { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
+}
+
+.carousel-track { position: relative; min-height: 5.8rem; }
 .carousel-item {
   display: none;
   opacity: 0;
@@ -221,7 +344,7 @@ section {
 }
 .carousel-item.is-active {
   display: block;
-  animation: quoteIn 0.55s ease forwards;
+  animation: quoteIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 .carousel-item.is-leaving {
   display: block;
@@ -231,24 +354,20 @@ section {
   animation: quoteOut 0.4s ease forwards;
 }
 @keyframes quoteIn {
-  from { opacity: 0; transform: translateY(12px); filter: blur(2px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  from { opacity: 0; transform: translateY(16px) scale(0.98); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 @keyframes quoteOut {
   from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 0; transform: translateY(-12px); }
 }
 .carousel blockquote p {
-  font-size: clamp(1.05rem, 2.6vw, 1.2rem);
+  font-size: clamp(1.05rem, 2.6vw, 1.22rem);
   font-style: italic;
   line-height: 1.65;
+  text-wrap: pretty;
 }
-.carousel blockquote footer {
-  margin-top: 0.85rem;
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-style: normal;
-}
+
 .carousel-controls {
   display: flex;
   align-items: center;
@@ -300,6 +419,13 @@ section {
   box-shadow: 0 0 10px var(--glow);
 }
 
+.hint {
+  margin-top: 0.75rem;
+  padding: 0 0.25rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
 .teaser, .poem-card {
   padding: 1.25rem 1.35rem;
   border-radius: var(--radius);
@@ -314,12 +440,14 @@ section {
   border-color: rgba(139, 150, 143, 0.4);
   text-align: center;
   color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  align-items: center;
 }
 .teaser strong {
-  display: block;
   color: var(--text);
   font-weight: 600;
-  margin-bottom: 0.35rem;
 }
 .teaser a {
   color: var(--accent);
@@ -394,7 +522,8 @@ footer.site a:hover { text-decoration: underline; }
     transition: none !important;
   }
   .nav, .hero, section, footer.site, #poems-preview, .page-block { opacity: 1; }
-  .carousel-item.is-active { opacity: 1; transform: none; }
+  .carousel-item.is-active { opacity: 1; transform: none; filter: none; }
+  .bg-grid, .cursor-glow { display: none; }
 }
 
 @media (min-width: 640px) {
